@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(cppyy_{{ cookiecutter.cmake_project_name }}
+project({{ cookiecutter.pkg_name }}_cmake_build
         LANGUAGES CXX 
         VERSION 0.1 
         HOMEPAGE_URL "{{ cookiecutter.project_url }}"
@@ -56,7 +56,7 @@ set_target_properties({{cookiecutter.cpp_lib_name}} PROPERTIES
 set_target_properties({{cookiecutter.cpp_lib_name}} PROPERTIES PUBLIC_HEADER ${LIB_HEADERS})
 target_include_directories({{cookiecutter.cpp_lib_name}}
                            PUBLIC
-                           ${CMAKE_SOURCE_DIR}/src/{{cookiecutter.cpp_lib_name}}
+                           ${CMAKE_SOURCE_DIR}/src/
 )
 
 
@@ -75,8 +75,9 @@ cppyy_add_bindings(
    SELECTION_XML  ${CMAKE_SOURCE_DIR}/selection.xml
    INTERFACE_FILE ${CMAKE_SOURCE_DIR}/interface.hh
    HEADERS        ${LIB_HEADERS} 
-   INCLUDE_DIRS   ${CMAKE_SOURCE_DIR}/src/{{cookiecutter.cpp_lib_name}}
+   INCLUDE_DIRS   ${CMAKE_SOURCE_DIR}/src
    LINK_LIBRARIES {{cookiecutter.cpp_lib_name}}
+   NAMESPACES     {{cookiecutter.cpp_lib_name}}
 )
 
 install(TARGETS       {{cookiecutter.cpp_lib_name}}
