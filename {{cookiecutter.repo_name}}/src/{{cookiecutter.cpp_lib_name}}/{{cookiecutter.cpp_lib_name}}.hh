@@ -1,4 +1,4 @@
-namespace {{cookiecutter.cpp_lib_name}} {
+namespace {{cookiecutter.cpp_namespace}} {
 
 class {{cookiecutter.cpp_lib_name.capitalize()}}Widget {
 protected:

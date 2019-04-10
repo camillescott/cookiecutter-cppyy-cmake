@@ -77,12 +77,12 @@ cppyy_add_bindings(
    HEADERS        ${LIB_HEADERS} 
    INCLUDE_DIRS   ${CMAKE_SOURCE_DIR}/src
    LINK_LIBRARIES {{cookiecutter.cpp_lib_name}}
-   NAMESPACES     {{cookiecutter.cpp_lib_name}}
+   NAMESPACES     {{cookiecutter.cpp_namespace}}
 )
 
 install(TARGETS       {{cookiecutter.cpp_lib_name}}
         LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/{{cookiecutter.cpp_lib_name}}
 )
 
 install(CODE "execute_process(COMMAND pip install ${PY_WHEEL_FILE})")

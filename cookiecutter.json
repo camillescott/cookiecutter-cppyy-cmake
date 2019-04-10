@@ -6,6 +6,7 @@
     "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
     "pkg_name": "{{ cookiecutter.repo_name|replace('-', '_') }}",
     "cpp_lib_name": "Name of the c++ project",
+    "cpp_namespace": "Primary namespace for lib and bindings",
     "project_short_description": "cppyy-generated bindings for {{ cookiecutter.cpp_lib_name }}",
     "project_url": "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}",
     "release_date": "{% now 'local' %}",
