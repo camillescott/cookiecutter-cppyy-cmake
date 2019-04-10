@@ -1,0 +1,7 @@
+<lcgdict>
+    <selection>
+        <class pattern="{{cookiecutter.cpp_lib_name}}::{{cookiecutter.cpp_lib_name.capitalize()}}Gadget<*>"/>
+    </selection>        
+    <exclusion>
+    </exclusion>
+</lcgdict>
