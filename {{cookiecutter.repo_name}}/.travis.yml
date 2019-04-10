@@ -1,0 +1,47 @@
+language: generic
+sudo: required
+dist: xenial
+matrix:
+    include:
+        - name: "PYTHON35"
+          env: PYVERSION="3.5" COMPILER_NAME=gcc CXX=g++-6 CC=gcc-6
+          addons:
+              apt:
+                  sources:
+                       - ubuntu-toolchain-r-test
+                  packages:
+                       - g++-6
+        - name: "PYTHON36"
+          env: PYVERSION="3.6" COMPILER_NAME=gcc CXX=g++-6 CC=gcc-6
+          addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                    packages:
+                        - g++-6
+        - name: "PYTHON37"
+          env: PYVERSION="3.7" COMPILER_NAME=gcc CXX=g++-6 CC=gcc-6
+          addons:
+                apt:
+                    sources:
+                        - ubuntu-toolchain-r-test
+                    packages:
+                        - g++-6
+before_script:
+    - sudo apt-get update
+    - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    - bash miniconda.sh -b -p $HOME/miniconda
+    - export PATH="$HOME/miniconda/bin:$PATH"
+    - conda config --set always_yes yes --set changeps1 no
+    - conda config --add channels defaults
+    - conda config --add channels conda-forge
+    - conda update -q conda
+    - conda info -a
+    - conda create -q -n test python=$PYVERSION cmake cxx-compiler c-compiler clangdev libcxx libstdcxx-ng libgcc-ng pytest
+    - source activate test
+    - pip install cppyy clang
+    - mkdir -p build
+    - cd build
+    - cmake ..
+    - make install VERBOSE=1
+script: py.test -v -s {{cookiecutter.pkg_name}}/tests/test_{{cookiecutter.cpp_lib_name}}.py.py
