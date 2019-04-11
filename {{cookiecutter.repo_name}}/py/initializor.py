@@ -62,7 +62,7 @@ def add_pythonizations(py_files, noisy=False):
                     cppyy.py.add_pythonization(func, namespace)
 
 
-def initialise(pkg, lib_file, map_file, noisy=False):
+def initialize(pkg, lib_file, map_file, noisy=False):
     """
     Initialise the bindings module.
 
@@ -79,7 +79,7 @@ def initialise(pkg, lib_file, map_file, noisy=False):
             Map the given C++ operator name on the python equivalent.
             """
             CPPYY__idiv__ = "__idiv__"
-            CPPYY__div__  = "__div__"
+            CPPYY__div__ = "__div__"
             gC2POperatorMapping = {
                 "[]": "__getitem__",
                 "()": "__call__",
@@ -166,7 +166,6 @@ def initialise(pkg, lib_file, map_file, noisy=False):
                                                                         keyword,
                                                                         simplename,
                                                                         children))
-            #raise
         else:
             if getattr(entity, "__module__", None) == "cppyy.gbl":
                 setattr(entity, "__module__", pkg)

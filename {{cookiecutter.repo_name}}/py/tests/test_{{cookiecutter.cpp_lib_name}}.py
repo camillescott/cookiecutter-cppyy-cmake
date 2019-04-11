@@ -1,7 +1,6 @@
 import pytest
 
-from cppyy.gbl import std
-from {{cookiecutter.pkg_name}} import {{cookiecutter.cpp_namespace}} 
+from {{cookiecutter.pkg_name}} import {{cookiecutter.cpp_namespace}}
 
 
 def test_{{cookiecutter.pkg_name}}_widget():
