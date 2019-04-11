@@ -1,13 +1,9 @@
-# cppyy-knn: An example of cppyy-generated bindings for a simple knn implementation
+# {{ cookiecuttter.repo_name}}: cppyy-generated bindings for {{cookiecutter.cpp_lib_name}}
 
-[![Build Status](https://travis-ci.org/camillescott/cppyy-knn.svg?branch=master)](https://travis-ci.org/camillescott/cppyy-knn)
+[![Build Status](https://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}.svg?branch=master)](https://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}})
 
-This is an example project showing how to integrate a C++ kNearestNeighbors implementation with
-[cppyy](https://bitbucket.org/wlav/cppyy/src/master/) to enable calling from Python. It's c++ code
-comes from an [alternative example](https://github.com/jclay/cppyy-knearestneighbors-example) which
-uses cppyy's bundled cmake sources; this version is based on my own rewrite first demonstrated in
-[cppyy-bbhash](https://github.com/camillescott/cppyy-bbhash). This packaging implementation makes a 
-number of improvements and changes:
+This project is set of Python bindings for {{cookiecutter.cpp_lib_name}} using
+[cppyy](https://bitbucket.org/wlav/cppyy/src/master/). The project template comes from [camillescott's cookiecutter recipe](https://github.com/camillescott/cookiecutter-cppyy-cmake), in which the CMake sources are based on the bundled cppyy CMake modules, with a number of improvements and changes:
 
 - `genreflex` and a selection XML are use instead of a direct `rootcling` invocation. This makes
     name selection much easier.
@@ -21,12 +17,6 @@ number of improvements and changes:
     themselves should be named `pythonize_<NAMESPACE>_*.py`, where `<NAMESPACE>` refers to the
     namespace the pythonizor will be added to in the `cppyy.py.add_pythonization` call. These will
     be automatically found and added by the initializor.
-
-cppyy-bbhash has a more complicated C++ codebase, with templating and namespaces; however, it's
-header only and I opted to simply compile it into a static library and bundle it with the bindings'
-shared library. Here, I've created dynamic library, linked the cppyy bindings library against it,
-set up things to be relocatable, and set up all the install targets to install both the library
-headers and SO and the Python wheel.
 
 ## Repo Structure
 
@@ -50,7 +40,7 @@ For this repository with anaconda:
     conda activate cppyy-example 
     pip install cppyy clang
 
-    git clone https://github.com/camillescott/cppyy-knn
+    git clone https://github.com/{{cookiecutter.github_username}}/{{cookiercutter.repo_name}}
     cd cppyy-knn
 
     mkdir build; cd build
@@ -59,31 +49,4 @@ For this repository with anaconda:
 
 And then to test:
 
-    py.test -v -s cppyy_simpleknn/tests/test_knn.py
-
-I still generate the `knn` c++ executable; it gets spit out in the build directory. The test files
-demonstrates the bindings usage:
-
-```python
-from cppyy.gbl import std
-from cppyy_simpleknn import NearestNeighbors, Point
-
-
-def test_point_iter_pythonizor():
-    pt = Point(1.0, 2.0)
-    test = [p for p in pt]
-    assert test == [1.0, 2.0]
-
-
-def test_point_repr_pythonizor():
-    pt = Point(1.0, 2.0)
-    assert repr(pt) == '(1.0, 2.0)'
-
-
-def test_knn_nearest():
-    knn = NearestNeighbors()
-    points = [Point(2,0), Point(1,0), Point(0,10), Point(5,5), Point(2,5)]
-    knn.points = std.vector[Point](points)
-    result = [tuple(res) for res in knn.nearest(Point(0.0, 0.0), 3)]
-    assert result == [(1.0, 0.0), (2.0, 0.0), (2.0, 5.0)]
-```
+    py.test -v -s {{cookiecutter.pkg_name}}/tests/test_{{cookiecutter.cpp_lib_name}}.py
