@@ -44,4 +44,4 @@ before_script:
     - cd build
     - cmake ..
     - make install VERBOSE=1
-script: py.test -v -s {{cookiecutter.pkg_name}}/tests/test_{{cookiecutter.cpp_lib_name}}.py.py
+script: py.test -v -s {{cookiecutter.pkg_name}}/tests/test_{{cookiecutter.cpp_lib_name}}.py
