@@ -1,4 +1,4 @@
-# {{ cookiecuttter.repo_name}}: cppyy-generated bindings for {{cookiecutter.cpp_lib_name}}
+# {{cookiecutter.repo_name}}: cppyy-generated bindings for {{cookiecutter.cpp_lib_name}}
 
 [![Build Status](https://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}.svg?branch=master)](https://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}})
 
@@ -40,7 +40,7 @@ For this repository with anaconda:
     conda activate cppyy-example 
     pip install cppyy clang
 
-    git clone https://github.com/{{cookiecutter.github_username}}/{{cookiercutter.repo_name}}
+    git clone https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}
     cd cppyy-knn
 
     mkdir build; cd build

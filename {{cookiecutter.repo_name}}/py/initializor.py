@@ -3,16 +3,10 @@ Support utilities for bindings.
 """
 import glob
 import json
-from distutils.command.clean import clean
-from distutils.util import get_platform
-from setuptools.command.build_py import build_py
-from wheel.bdist_wheel import bdist_wheel
 import gettext
 import inspect
 import os
 import re
-import setuptools
-import subprocess
 import sys
 try:
     #
@@ -37,14 +31,11 @@ except ImportError:
 
 import cppyy
 
-
 gettext.install(__name__)
 
-# Keep PyCharm happy.
-_ = _
 
-
-PRIMITIVE_TYPES = re.compile(r"\b(bool|char|short|int|unsigned|long|float|double)\b")
+ptypes = r"\b(bool|char|short|int|unsigned|long|float|double)\b"
+PRIMITIVE_TYPES = re.compile(ptypes)
 
 
 def add_pythonizations(py_files, noisy=False):
@@ -54,10 +45,9 @@ def add_pythonizations(py_files, noisy=False):
         if not os.path.basename(py_file).startswith('pythonize'):
             continue
         module_name = inspect.getmodulename(py_file)
-        module      = load_source(module_name, py_file)
-        funcs       = inspect.getmembers(module, predicate=inspect.isroutine)
+        module = load_source(module_name, py_file)
+        funcs = inspect.getmembers(module, predicate=inspect.isroutine)
 
-        pythonizors = {}
         for name, func in funcs:
             if not name.startswith('pythonize'):
                 continue
@@ -70,7 +60,6 @@ def add_pythonizations(py_files, noisy=False):
                     cppyy.py.add_pythonization(func)
                 else:
                     cppyy.py.add_pythonization(func, namespace)
-
 
 
 def initialise(pkg, lib_file, map_file, noisy=False):
@@ -173,7 +162,10 @@ def initialise(pkg, lib_file, map_file, noisy=False):
             entity = getattr(cppyy.gbl, simplename)
         except AttributeError as e:
             if noisy:
-                print(_("Unable to lookup {}:{} cppyy.gbl.{} ({})").format(file, keyword, simplename, children))
+                print("Unable to lookup {}:{} cppyy.gbl.{} ({})".format(file,
+                                                                        keyword,
+                                                                        simplename,
+                                                                        children))
             #raise
         else:
             if getattr(entity, "__module__", None) == "cppyy.gbl":
@@ -193,6 +185,9 @@ def initialise(pkg, lib_file, map_file, noisy=False):
 
     #
     # Load pythonizations
+    # Has to be done before the mapping, otherwise the names from our library
+    # that are in the global namespace will be compiled when injected, before
+    # having their pythonizors applied
     #
     pythonization_files = glob.glob(os.path.join(pkg_dir, '**/pythonize*.py'), recursive=True)
     add_pythonizations(pythonization_files, noisy=noisy)
