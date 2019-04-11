@@ -1,6 +1,8 @@
 cookiecutter-cppyy-cmake
 ========================
 
+[![Build Status](https://travis-ci.org/camillescott/cookiecutter-cppyy-cmake.svg?branch=master)](https://travis-ci.org/camillescott/cookiecutter-cppyy-cmake) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A cookiecutter template for using cppyy to generate python bindings for c++ code
 
 Requirements
